@@ -5,6 +5,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { TodoComponent } from './todo/todo.component';
@@ -20,7 +21,7 @@ export const environment = {
   production: false,
   firebase: {
     // Colocar aquí los datos de la consola de Firebase
-    apiKey: 'APIKEY',
+    apiKey: '',
     authDomain: 'angularfirebase-63b24.firebaseapp.com',
     databaseURL: 'https://angularfirebase-63b24.firebaseio.com',
     projectId: 'angularfirebase-63b24',
@@ -43,6 +44,7 @@ export const environment = {
       { enableTracing: true } // <-- debugging purposes only
     ),
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule // imports firebase/storage only needed for storage features
