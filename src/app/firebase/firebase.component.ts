@@ -25,13 +25,13 @@ export class FirebaseComponent implements OnInit {
     this.items = this.db.list('/elements').valueChanges();
     this.listado = this.db.list('/elements');
     this.nombre = '';
-    console.log(this.items);
+    // console.log(this.items);
   }
 
   ngOnInit() {
   }
   updateData() {
-    this.db.list('/elements').snapshotChanges(['child_added'])
+    this.db.list('/elements').snapshotChanges(['child_added', 'child_removed', 'child_changed'])
       .subscribe(actions => {
         const miarray = [];
         actions.forEach(action => {
@@ -48,24 +48,28 @@ export class FirebaseComponent implements OnInit {
       });
   }
   addObject(nombre) {
-    console.log(nombre.value);
-    this.listado.push({ nombre: nombre.value}).then((item) => { console.log(item.key); });
+    // console.log(nombre.value);
+    this.listado.push({ nombre: nombre.value}).then((item) => {
+      // console.log(item.key);
+      this.item = new Libro('', '');
+    });
     // console.log(this.objeto);
   }
   removeObject(key) {
-    console.log(key);
+    // console.log(key);
     // console.log(this.listado);
     this.listado.remove(key).then(data => {
-      this.updateData();
+      // this.updateData();
+      this.item = new Libro('', '');
     });
   }
   editObject(key) {
-    console.log(key);
+    // console.log(key);
     // console.log(this.listado);
     this.db.object('/elements/' + key).snapshotChanges().subscribe(data =>{
-      console.log(data);
+      // console.log(data);
       this.item = new Libro(data.key, data.payload.val());
-      console.log(this.item);
+      // console.log(this.item);
       // this.item.key = data.key;
       // this.item.value = data.payload.val();
 
@@ -79,10 +83,12 @@ export class FirebaseComponent implements OnInit {
       // console.log(data);
       this.item = new Libro(data.key, data.payload.val());
       // console.log(this.item);
-      this.listado.set(key, {'nombre': value});
-      this.item.key = '';
-      this.item.value.nombre = '';
-      this.updateData();
+      this.listado.set(key, {'nombre': value}).then(datos => {
+        this.item.key = '';
+        this.item.value.nombre = '';
+        // this.updateData();
+      });
+
       // this.item.key = data.key;
       // this.item.value = data.payload.val();
 
