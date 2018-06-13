@@ -1,11 +1,14 @@
 <h2>Módulo de Firebase</h2>
-<input #nombre type="text" id="texto" value=""/>
-<button (click)="addObject(nombre)">Add a book!</button>
+<input #key type="text" id="key" value="{{item.key}}"/>
+<input #nombre type="text" id="texto" value="{{(item.value)?.nombre}}"/>
+<button (click)="addObject(nombre)">Crear</button>
+<button (click)="updateObject(key.value,nombre.value)">Actualizar</button>
 <div>
   <h2>Listado de Items</h2>
   <ul>
-    <li class="text" *ngFor="let item of datos._subscribe" >
+    <li class="text" *ngFor="let item of datos" >
       {{item.value.nombre}}<button (click)="removeObject(item.key)">Borrar</button>
+      <button (click)="editObject(item.key)">Editar</button>
     </li>
   </ul>
 </div>

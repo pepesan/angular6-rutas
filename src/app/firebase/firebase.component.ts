@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import { Observable } from 'rxjs';
 
+class Libro {
+  constructor(public key, public value) {}
+}
+
 @Component({
   selector: 'app-firebase',
   templateUrl: './firebase.component.html',
@@ -12,15 +16,12 @@ export class FirebaseComponent implements OnInit {
   public items: Observable<any[]>;
   // Referencia a ruta
   public listado: AngularFireList<any>;
-  objeto;
-  nombre;
   datos: any[] = [];
+  item: Libro = new Libro('', '');
+  key = '';
+  nombre = '';
   constructor(protected db: AngularFireDatabase) {
-
-
-
     this.updateData();
-
     this.items = this.db.list('/elements').valueChanges();
     this.listado = this.db.list('/elements');
     this.nombre = '';
@@ -35,13 +36,14 @@ export class FirebaseComponent implements OnInit {
         const miarray = [];
         actions.forEach(action => {
 
-          const objeto = {'key': action.key, 'value': action.payload.val()}
+          const objeto = {'key': action.key, 'value': action.payload.val()};
+          // objeto =  Observable.create (objeto);
           miarray.push(objeto);
           // console.log(action.type);
           // console.log(action.key);
           // console.log(action.payload.val());
         });
-        this.datos = Observable.create(miarray);
+        this.datos = miarray;
         // console.log(this.datos);
       });
   }
@@ -51,10 +53,40 @@ export class FirebaseComponent implements OnInit {
     // console.log(this.objeto);
   }
   removeObject(key) {
-    // console.log(key);
+    console.log(key);
     // console.log(this.listado);
-    this.listado.remove(key);
-    this.updateData();
+    this.listado.remove(key).then(data => {
+      this.updateData();
+    });
+  }
+  editObject(key) {
+    console.log(key);
+    // console.log(this.listado);
+    this.db.object('/elements/' + key).snapshotChanges().subscribe(data =>{
+      console.log(data);
+      this.item = new Libro(data.key, data.payload.val());
+      console.log(this.item);
+      // this.item.key = data.key;
+      // this.item.value = data.payload.val();
+
+    } );
+  }
+  updateObject(key, value) {
+    // console.log(key);
+    // console.log(value);
+    // console.log(this.listado);
+    this.db.object('/elements/' + key).snapshotChanges().subscribe(data => {
+      // console.log(data);
+      this.item = new Libro(data.key, data.payload.val());
+      // console.log(this.item);
+      this.listado.set(key, {'nombre': value});
+      this.item.key = '';
+      this.item.value.nombre = '';
+      this.updateData();
+      // this.item.key = data.key;
+      // this.item.value = data.payload.val();
+
+    } );
   }
 
 }
