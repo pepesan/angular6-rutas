@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+
+  <span>MyCompany</span>
+  <span class="example-spacer"></span>
+  <button md-button [matMenuTriggerFor]="appMenu"><mat-icon>menu</mat-icon> Menu</button>
+
+</mat-toolbar>
+
+<mat-menu #appMenu="matMenu">
+  <button md-menu-item> Settings </button>
+  <button md-menu-item> Help </button>
+</mat-menu>
+
+<mat-card class="example-card" *ngFor="let data of myData |async ; let i = index">
+
+  <img md-card-image src="{{ data.url }}">
+  <mat-card-header>
+    <mat-card-title>{{ data.title }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-actions>
+    <button md-button>LIKE</button>
+    <button md-button>SHARE</button>
+  </mat-card-actions>
+
+</mat-card>

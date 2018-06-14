@@ -11,11 +11,16 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { TodoComponent } from './todo/todo.component';
 import { FirebaseComponent } from './firebase/firebase.component';
+import {MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialComponent } from './material/material.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'todo', component: TodoComponent },
   { path: 'firebase', component: FirebaseComponent },
+  { path: 'material', component: MaterialComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 export const environment = {
@@ -36,7 +41,8 @@ export const environment = {
     AppComponent,
     HomeComponent,
     TodoComponent,
-    FirebaseComponent
+    FirebaseComponent,
+    MaterialComponent
   ],
   imports: [
     BrowserModule,
@@ -49,8 +55,14 @@ export const environment = {
     AngularFireDatabaseModule,
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule // imports firebase/storage only needed for storage features
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    // Importaciones de Material
+    BrowserAnimationsModule,
+    MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule,
+    HttpClientModule
   ],
+  // Exportaciones de Material
+  exports: [MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule],
   providers: [],
   bootstrap: [AppComponent]
 })
