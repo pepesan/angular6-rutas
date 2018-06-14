@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+
 import { Observable } from 'rxjs';
+import {auth} from 'firebase';
 
 class Libro {
   constructor(public key, public value) {}
@@ -20,8 +23,8 @@ export class FirebaseComponent implements OnInit {
   item: Libro = new Libro('', '');
   key = '';
   nombre = '';
-  constructor(protected db: AngularFireDatabase) {
-    this.updateData();
+  constructor(protected db: AngularFireDatabase, public afAuth: AngularFireAuth) {
+    // this.updateData();
     this.items = this.db.list('/elements').valueChanges();
     this.listado = this.db.list('/elements');
     this.nombre = '';
@@ -93,6 +96,12 @@ export class FirebaseComponent implements OnInit {
       // this.item.value = data.payload.val();
 
     } );
+  }
+  login() {
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+  }
+  logout() {
+    this.afAuth.auth.signOut();
   }
 
 }
