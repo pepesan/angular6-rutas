@@ -15,12 +15,14 @@ import {MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIcon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialComponent } from './material/material.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'todo', component: TodoComponent },
   { path: 'firebase', component: FirebaseComponent },
   { path: 'material', component: MaterialComponent },
+  { path: 'acercaDe', component: AboutComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 export const environment = {
@@ -42,7 +44,8 @@ export const environment = {
     HomeComponent,
     TodoComponent,
     FirebaseComponent,
-    MaterialComponent
+    MaterialComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
