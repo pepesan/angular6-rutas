@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MaterialComponent } from './material.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MatButtonModule, MatCardModule, MatIconModule, MatMenuModule, MatToolbarModule} from '@angular/material';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('MaterialComponent', () => {
   let component: MaterialComponent;
@@ -8,7 +10,10 @@ describe('MaterialComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MaterialComponent ]
+      declarations: [ MaterialComponent ],
+      imports: [ RouterTestingModule,
+        MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule,
+        HttpClientModule ]
     })
     .compileComponents();
   }));
