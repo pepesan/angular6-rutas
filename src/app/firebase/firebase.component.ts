@@ -25,7 +25,24 @@ export class FirebaseComponent implements OnInit {
   nombre = '';
   constructor(protected db: AngularFireDatabase, public afAuth: AngularFireAuth) {
     // this.updateData();
-    this.items = this.db.list('/elements').valueChanges();
+    // this.items = this.db.list('/elements').snapshotChanges();
+    this.db.list('/elements').snapshotChanges().subscribe(data => {
+      // console.log(data);
+      this.datos = [];
+      for (const i of data) {
+        console.log(i);
+        console.log(i.key);
+        console.log(i.payload.val().nombre);
+        const libro = new Libro(i.key, i.payload.val().nombre);
+        this.datos.push(libro);
+      }
+    });
+    /*
+    this.db.list('/elements').valueChanges().subscribe(data => {
+      console.log(data);
+      this.datos = data;
+    });
+    */
     this.listado = this.db.list('/elements');
     this.nombre = '';
     // console.log(this.items);

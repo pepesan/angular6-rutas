@@ -16,7 +16,7 @@
     <h2>Listado de Items</h2>
     <ul>
       <li class="text" *ngFor="let item of datos" >
-        {{item.value.nombre}}<button (click)="removeObject(item.key)">Borrar</button>
+        {{item.value}}<button (click)="removeObject(item.key)">Borrar</button>
         <button (click)="editObject(item.key)">Editar</button>
       </li>
     </ul>
