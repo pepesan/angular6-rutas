@@ -25,9 +25,10 @@ export class FirebaseComponent implements OnInit {
   nombre = '';
   constructor(protected db: AngularFireDatabase, public afAuth: AngularFireAuth) {
     // this.updateData();
-    // this.items = this.db.list('/elements').snapshotChanges();
+    this.items = this.db.list('/elements').snapshotChanges();
+    /*
     this.db.list('/elements').snapshotChanges().subscribe(data => {
-      // console.log(data);
+      console.log(data);
       this.datos = [];
       for (const i of data) {
         console.log(i);
@@ -37,6 +38,7 @@ export class FirebaseComponent implements OnInit {
         this.datos.push(libro);
       }
     });
+    */
     /*
     this.db.list('/elements').valueChanges().subscribe(data => {
       console.log(data);
